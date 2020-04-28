@@ -1,0 +1,2 @@
+dartdoc:
+  include: ["sonarscanner_dart"]

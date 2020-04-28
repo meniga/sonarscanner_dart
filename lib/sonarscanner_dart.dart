@@ -1,0 +1,1 @@
+library sonarscanner_dart;

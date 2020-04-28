@@ -1,0 +1,22 @@
+language: dart
+dart:
+  - stable
+  - dev
+
+before_script:
+  - git clone https://github.com/flutter/flutter.git -b stable /tmp/flutter
+  - export PATH=/tmp/flutter/bin:/tmp/flutter/bin/cache/dart-sdk/bin:$PATH
+
+cache:
+  directories:
+    - $HOME/.pub-cache
+    - .dart_tool/build
+
+script:
+  - dartanalyzer --fatal-warnings .
+  - pub run test_coverage --no-badge
+  - dartdoc --no-generate-docs
+  - pub publish --dry-run
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
