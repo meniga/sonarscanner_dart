@@ -198,11 +198,9 @@ packages:
   moronepo:
     dependency: "direct main"
     description:
-      path: "."
-      ref: "prepare-release-0.1.2"
-      resolved-ref: "1317a825d73d8338714a4ed94f3f70188c416a0f"
-      url: "git@github.com:meniga/moronepo.git"
-    source: git
+      name: moronepo
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.1.2"
   multi_server_socket:
     dependency: transitive
