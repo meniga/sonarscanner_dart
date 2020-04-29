@@ -1,4 +1,5 @@
 import 'package:sonarscanner_dart/src/module_finder/module_finder.dart';
+import 'package:sonarscanner_dart/src/module_finder/sonar_module.dart';
 import 'package:test/test.dart';
 
 import '../directories.dart';
@@ -14,14 +15,13 @@ void main() {
 
     test("should find sonar modules", () async {
       // when
-      final result = await moduleFinder.findModules(
+      final modules = await moduleFinder.findModules(
         path: testProjectPath,
         coverageReportPath: "coverage/lcov.info",
         testReportPath: "tests.output",
       );
 
       // then
-      final modules = result.modules;
       expect(
           modules,
           containsAll([
