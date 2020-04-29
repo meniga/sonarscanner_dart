@@ -1,7 +1,7 @@
 # sonarscanner_dart
 
 [![pub package](https://img.shields.io/pub/v/sonarscanner_dart.svg)](https://pub.dev/packages/sonarscanner_dart)
-[![Build Status](https://travis-ci.org/sonarscanner_dart/sonarscanner_dart.svg?branch=master)](https://travis-ci.org/meniga/sonarscanner_dart)
+[![Build Status](https://travis-ci.org/meniga/sonarscanner_dart.svg?branch=master)](https://travis-ci.org/meniga/sonarscanner_dart)
 [![codecov](https://codecov.io/gh/meniga/sonarscanner_dart/branch/master/graph/badge.svg)](https://codecov.io/gh/meniga/sonarscanner_dart)
 
 The SonarScanner for Dart provides an easy way to start SonarQube analysis of a dart project. 
@@ -9,6 +9,8 @@ The SonarScanner for Dart provides an easy way to start SonarQube analysis of a 
 Currently, it supports following commands:
 
 [generate](#generate-command)
+
+[run](#run-command)
 
 # Usage
 
@@ -47,12 +49,28 @@ sonarscanner_dart generate
 
 ### generate command
 
+Generates sonar-project.properties
+
 ```bash
-sonarscanner_dart generate [--coverage-path <path_to_lcov_file>] [--report-path <path_to_machine_test_output>]
+sonarscanner_dart generate [--coverage-path <path_to_lcov_file>] [--report-path <path_to_machine_test_output>] [path_to_properties_file]
 ```
 
 For example:
 
 ```bash
 sonarscanner_dart generate --coverage-path build/lcov.info --report-path build/tests.output
+```
+
+### run command
+
+Runs sonar-scanner. It is also possible to pass additional properties after `--`.
+
+```bash
+sonarscanner_dart run [--coverage-path <path_to_lcov_file>] [--report-path <path_to_machine_test_output>]
+```
+
+For example:
+
+```bash
+sonarscanner_dart run --coverage-path build/lcov.info --report-path build/tests.output -- -Dproject.settings=sonar-project.properties
 ```
