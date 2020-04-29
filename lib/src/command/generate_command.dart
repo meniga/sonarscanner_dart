@@ -43,13 +43,13 @@ class GenerateCommand extends SonarScannerCommand<Null> {
       return;
     }
 
-    final findResult = await ModuleFinder().findModules(
+    final modules = await ModuleFinder().findModules(
       path: rootDirectory,
       testReportPath: testReportPath,
       coverageReportPath: coverageReportPath,
     );
 
-    final properties = await PropertiesWriter().toProperties(findResult.modules);
+    final properties = await PropertiesWriter().toProperties(modules);
     File(sonarProjectProperties)
       ..createSync(recursive: true)
       ..writeAsStringSync(properties.asString());

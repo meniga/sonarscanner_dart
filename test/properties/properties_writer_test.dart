@@ -1,4 +1,4 @@
-import 'package:sonarscanner_dart/src/module_finder/module_finder.dart';
+import 'package:sonarscanner_dart/src/module_finder/sonar_module.dart';
 import 'package:sonarscanner_dart/src/properties/properties_writer.dart';
 import 'package:test/test.dart';
 
