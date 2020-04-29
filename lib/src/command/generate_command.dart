@@ -55,12 +55,3 @@ class GenerateCommand extends SonarScannerCommand<Null> {
       ..writeAsStringSync(properties.asString());
   }
 }
-
-class CommandException {
-  final int exitCode;
-
-  CommandException(this.exitCode);
-
-  @override
-  String toString() => "Command exitted with code $exitCode";
-}
