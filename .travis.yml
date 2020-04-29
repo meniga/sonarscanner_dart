@@ -3,18 +3,21 @@ dart:
   - stable
   - dev
 
-before_script:
-  - git clone https://github.com/flutter/flutter.git -b stable /tmp/flutter
-  - export PATH=/tmp/flutter/bin:/tmp/flutter/bin/cache/dart-sdk/bin:$PATH
-
 cache:
   directories:
     - $HOME/.pub-cache
     - .dart_tool/build
 
+before_install:
+  - git clone https://github.com/flutter/flutter.git -b stable $HOME/flutter
+  - export PATH=$HOME/flutter/bin:$HOME/flutter/bin/cache/dart-sdk/bin:$PATH
+
+install:
+  - flutter pub get
+
 script:
-  - dartanalyzer --fatal-warnings .
-  - pub run test_coverage --no-badge
+  - flutter analyze
+  - flutter pub run test_coverage --no-badge
   - dartdoc --no-generate-docs
   - pub publish --dry-run
 
