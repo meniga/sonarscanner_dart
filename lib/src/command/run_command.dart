@@ -34,10 +34,10 @@ class RunCommand extends SonarScannerCommand<Null> {
   FutureOr<Null> run() async {
     final rootDirectory = sonarScannerArgResults.workingDirectory ?? Directory.current.path;
     final cacheDirectory = sonarScannerArgResults.cacheDirectory ?? _getCacheDirectoryPath();
-    final distributionName = _extractDistributionName(_runArgResults.distributionUrl);
+    final distributionName = _extractDistributionName(_runArgResults._distributionUrl);
     final distributionDirectory = Directory("${cacheDirectory}/${distributionName}");
     if (_shouldDownloadDistribution(distributionDirectory)) {
-      final archive = await _downloadDistributionArchive(_runArgResults.distributionUrl);
+      final archive = await _downloadDistributionArchive(_runArgResults._distributionUrl);
       _extractArchive(archive, cacheDirectory);
     }
     final processExitCode = await _startProcess(
@@ -61,7 +61,7 @@ class RunCommand extends SonarScannerCommand<Null> {
   }
 
   bool _shouldDownloadDistribution(Directory distributionDirectory) {
-    return _runArgResults.clearCache || !distributionDirectory.existsSync();
+    return _runArgResults._clearCache || !distributionDirectory.existsSync();
   }
 
   Future<Archive> _downloadDistributionArchive(String distributionUrl) async {
@@ -98,22 +98,25 @@ class RunCommand extends SonarScannerCommand<Null> {
 }
 
 class _RunArgResults {
-  final String distributionUrl;
-  final bool clearCache;
+  static const _distributionUrlParameterName = "distribution-url";
+  static const _clearCacheParameterName = "clear-cache";
+
+  final String _distributionUrl;
+  final bool _clearCache;
 
   _RunArgResults.fromArgResults(ArgResults results)
-      : this.distributionUrl = fromResults(results, "distribution-url"),
-        this.clearCache = fromResults(results, "clear-cache");
+      : this._distributionUrl = fromResults(results, _distributionUrlParameterName),
+        this._clearCache = fromResults(results, _clearCacheParameterName);
 
   static void addOptions(ArgParser argParser) {
     argParser.addOption(
-      "distribution-url",
+      _distributionUrlParameterName,
       abbr: "u",
       defaultsTo:
           "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.2.0.1873.zip",
     );
     argParser.addFlag(
-      "clear-cache",
+      _clearCacheParameterName,
       abbr: "c",
       defaultsTo: false,
     );

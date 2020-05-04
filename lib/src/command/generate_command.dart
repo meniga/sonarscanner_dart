@@ -46,22 +46,25 @@ class GenerateCommand extends SonarScannerCommand<Null> {
 }
 
 class _GenerateArgResults {
+  static const _reportPathParameterName = "report-path";
+  static const _coveragePathParameterName = "coverage-path";
+
   final String testReportPath;
   final String coverageReportPath;
 
   _GenerateArgResults.fromArgResults(ArgResults results)
-      : this.testReportPath = fromResults(results, "report-path"),
-        this.coverageReportPath = fromResults(results, "coverage-path");
+      : this.testReportPath = fromResults(results, _reportPathParameterName),
+        this.coverageReportPath = fromResults(results, _coveragePathParameterName);
 
   static void addOptions(ArgParser argParser) {
     argParser.addOption(
-      "report-path",
+      _reportPathParameterName,
       abbr: "r",
       help: "specifies the test report path for subprojects",
       defaultsTo: "build/tests.output",
     );
     argParser.addOption(
-      "coverage-path",
+      _coveragePathParameterName,
       abbr: "c",
       help: "specifies the coverage file path for subprojects",
       defaultsTo: "coverage/lcov.info",
